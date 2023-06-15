@@ -9,3 +9,19 @@ Combat::~Combat() {}
 const string& Combat::getNiveau() const {
     return niveau;
 }
+
+void Combat::setCoinBleu(Boxeur* boxeur) {
+    coinBleu = boxeur;
+}
+
+Boxeur* Combat::getCoinBleu() const {
+    return coinBleu;
+}
+
+void Combat::setCoinRouge(Boxeur* boxeur) {
+    coinRouge = boxeur;
+}
+
+Boxeur* Combat::getCoinRouge() const {
+    return coinRouge;
+}

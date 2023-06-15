@@ -1,35 +1,57 @@
 using namespace std;
 #include "Boxeur.h"
-#include <iostream>
 #include "Combat.h"
+#include <iostream>
+
+void AfficheResultats(Combat competitions[]) {
+    for (int i = 0; i < 3; i++) {
+        Combat combat = competitions[i];
+        cout << "Combat : " << combat.getNiveau() << endl;
+        cout << "Coin bleu : " << combat.getCoinBleu()->getNom() << endl;
+        cout << "Coin rouge : " << combat.getCoinRouge()->getNom() << endl;
+        if (combat.getVainqueur() != nullptr) {
+            cout << "Vainqueur : " << combat.getVainqueur()->getNom() << endl;
+        }
+        else {
+            cout << "Aucun vainqueur désigné." << endl;
+        }
+        cout << endl;
+    }
+}
 
 int main() {
     Boxeur boxeur_1("Box_1", 75);
-    cout << "Adresse de boxeur_1 : " << &boxeur_1 << ", Nom : " << boxeur_1.getNom() << ", Poids : " << boxeur_1.getPoids() << endl;
+    Boxeur boxeur_2("Box_2", 78);
+    Boxeur boxeur_3("Box_3", 72);
+    Boxeur boxeur_4("Box_4", 80);
 
-    Boxeur* boxeur_2 = new Boxeur("Box_2", 78);
-    cout << "Adresse de boxeur_2 : " << boxeur_2 << ", Nom : " << boxeur_2->getNom() << ", Poids : " << boxeur_2->getPoids() << endl;
+    Combat demiFinale1("1/2 Finale 1");
+    Combat demiFinale2("1/2 Finale 2");
+    Combat finale("Finale");
 
-    Combat combat_1("Comb_1_1/8");
-    cout << "Adresse de combat_1 : " << &combat_1 << ", Niveau : " << combat_1.getNiveau() << endl;
+    Combat competitions[3] = { demiFinale1, demiFinale2, finale };
 
-    combat_1.setCoinBleu(&boxeur_1);
-    combat_1.setCoinRouge(boxeur_2);
+    competitions[0].setCoinBleu(&boxeur_1);
+    competitions[0].setCoinRouge(&boxeur_2);
 
-    cout << "Boxeur dans le coin bleu : " << combat_1.getCoinBleu()->getNom() << endl;
-    cout << "Boxeur dans le coin rouge : " << combat_1.getCoinRouge()->getNom() << endl;
+    competitions[1].setCoinBleu(&boxeur_3);
+    competitions[1].setCoinRouge(&boxeur_4);
 
-    combat_1.DesignerVainqueur("rouge");
+    competitions[0].DesignerVainqueur("rouge");
+    competitions[1].DesignerVainqueur("bleu");
 
-    Boxeur* vainqueur = combat_1.getVainqueur();
-    if (vainqueur != nullptr) {
-        cout << "Vainqueur : " << vainqueur->getNom() << endl;
+    competitions[2].setCoinBleu(demiFinale1.getVainqueur());
+    competitions[2].setCoinRouge(demiFinale2.getVainqueur());
+
+    if (competitions[2].getCoinBleu() != nullptr && competitions[2].getCoinRouge() != nullptr) {
+        competitions[2].DesignerVainqueur("bleu");
     }
-    else {
-        cout << "Aucun vainqueur designe." << endl;
-    }
 
-    delete boxeur_2;
+    cout << "Vainqueur de la demi-finale 1 : " << competitions[0].getVainqueur()->getNom() << endl;
+    cout << "Vainqueur de la demi-finale 2 : " << competitions[1].getVainqueur()->getNom() << endl;
+    cout << "Vainqueur de la finale : " << competitions[2].getVainqueur()->getNom() << endl;
+
+    AfficheResultats(competitions);
 
     return 0;
 }

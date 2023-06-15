@@ -25,3 +25,24 @@ void Combat::setCoinRouge(Boxeur* boxeur) {
 Boxeur* Combat::getCoinRouge() const {
     return coinRouge;
 }
+
+Boxeur* Combat::DesignerVainqueur(const string& couleurCoin) {
+    if (couleurCoin == "rouge") {
+        vainqueur = coinRouge;
+    }
+    else if (couleurCoin == "bleu") {
+        vainqueur = coinBleu;
+    }
+    else {
+        vainqueur = nullptr;
+    }
+    return vainqueur;
+}
+
+Boxeur* Combat::getVainqueur() const {
+    return vainqueur;
+}
+
+
+
+

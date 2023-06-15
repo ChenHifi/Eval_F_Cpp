@@ -8,6 +8,7 @@ private:
     string niveau;
     Boxeur* coinBleu;
     Boxeur* coinRouge;
+    Boxeur* vainqueur;
 
 public:
     Combat(const string& niveau);
@@ -20,5 +21,8 @@ public:
 
     void setCoinRouge(Boxeur* boxeur);
     Boxeur* getCoinRouge() const;
+
+    Boxeur* DesignerVainqueur(const string& couleurCoin);
+    Boxeur* getVainqueur() const;
 };
 
